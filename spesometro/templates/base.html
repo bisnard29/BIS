@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Espesometro</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link href="{% static "css/main.css" %}" rel="stylesheet">
+	<noscript><link rel="stylesheet" href="{% static "css/noscript.css"%} /></noscript>
+</head>
+<body>
+<article>
+<div id="main">
+</br>
+    {% block content %}
+    {% endblock %}
+ </div>
+</article>
+</body>
+<footer id="footer">
+<p class="copyright">&copy; Design: <a href="#">BIS</a>.</p>
+</footer>
+</html>
