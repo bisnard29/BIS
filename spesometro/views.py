@@ -6,29 +6,33 @@ from pandas import ExcelWriter
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from .forms import SpesoForm
+import os
 
 
 def simple_upload(request):
-    if request.method == 'POST':
-        form = SpesoForm(request.POST)
-        mailto = form['mailto'].value
-        mail = EmailMessage('Spesometro','Hi, Please find attached Spesometro Files.',settings.EMAIL_HOST_USER, mailto)
-        if form.isvalid():
-            for f in request.FILES.getlist('files'):
-                    name=os.path.splitext(f.name)[0]
-                    type=f.name[0]
-                    if type=="E":
-                            Efiles(f, path_to_download_folder,name)
-                            mail.attach_file('/tmp/'+ name + ".xml")
-                    elif type=="R":
-                            Rfiles(f, path_to_download_folder,name)
-                            mail.attach_file('/tmp/'+ name + ".xml")
-            mail.send()
-    return render(request, 'import/import.html')
+        form = SpesoForm(request.POST, request.FILES)
+        if request.method == 'POST':
+                mailto = form['mailto'].value
+                mail = EmailMessage('Spesometro','Hi, Please find attached Spesometro Files.',settings.EMAIL_HOST_USER,[mailto])
+                if form.is_valid():
+                    for f in request.FILES.getlist('files'):
+                            name=os.path.splitext(f.name)[0]
+                            type=f.name[0]
+                            if type=="E":
+                                    Efiles(f,name)
+                                    mail.attach_file('/tmp/'+ name + ".xml")
+                            elif type=="R":
+                                    Rfiles(f,name)
+                                    mail.attach_file('/tmp/'+ name + ".xml")
+                            return self.form_valid(form)
+                    else:
+                            return self.form_invalid(form)
+                    mail.send()
+        return render(request, 'import/import.html', {'form': form})
 
 
 
-def Efiles(f,path,name):
+def Efiles(f,name):
         excel_file = f
         df = pd.read_excel(excel_file)
 
@@ -158,7 +162,7 @@ def Efiles(f,path,name):
         myfile.write(mydata)
 
 
-def Rfiles(f,path,name):
+def Rfiles(f,name):
         excel_file = f
         df = pd.read_excel(excel_file)
 
