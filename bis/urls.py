@@ -4,5 +4,5 @@ from spesometro.views import simple_upload
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', simple_upload, name="import")
+    path('spesometro/', simple_upload, name="import")
 ]

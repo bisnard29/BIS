@@ -26,7 +26,7 @@ def simple_upload(request):
                                     Rfiles(f,name)
                                     mail.attach_file('/tmp/'+ name + ".xml")
                     mail.send()
-                    return redirect('/')
+                    #return redirect('')
                 else:
                     form=SpesoForm()
         return render(request, 'import/import.html', {'form': form})
