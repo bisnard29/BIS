@@ -12,7 +12,7 @@ import os
 def simple_upload(request):
         form = SpesoForm(request.POST, request.FILES)
         if request.method == 'POST':
-                mailto = form['mailto'].value
+                mailto = request.POST.get('mailto', '')
                 mail = EmailMessage('Spesometro','Hi, Please find attached Spesometro Files.',settings.EMAIL_HOST_USER,[mailto])
                 if form.is_valid():
                     for f in request.FILES.getlist('files'):
@@ -24,9 +24,6 @@ def simple_upload(request):
                             elif type=="R":
                                     Rfiles(f,name)
                                     mail.attach_file('/tmp/'+ name + ".xml")
-                            return self.form_valid(form)
-                    else:
-                            return self.form_invalid(form)
                     mail.send()
         return render(request, 'import/import.html', {'form': form})
 
