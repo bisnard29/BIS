@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 import xml.etree.ElementTree as ET
 from datetime import datetime
 import pandas as pd
@@ -10,8 +10,9 @@ import os
 
 
 def simple_upload(request):
-        form = SpesoForm(request.POST, request.FILES)
+        form = SpesoForm()
         if request.method == 'POST':
+                form = SpesoForm(request.POST, request.FILES)
                 mailto = request.POST.get('mailto', '')
                 mail = EmailMessage('Spesometro','Hi, Please find attached Spesometro Files.',settings.EMAIL_HOST_USER,[mailto])
                 if form.is_valid():
@@ -25,6 +26,9 @@ def simple_upload(request):
                                     Rfiles(f,name)
                                     mail.attach_file('/tmp/'+ name + ".xml")
                     mail.send()
+                    return redirect('/')
+                else:
+                    form=SpesoForm()
         return render(request, 'import/import.html', {'form': form})
 
 
