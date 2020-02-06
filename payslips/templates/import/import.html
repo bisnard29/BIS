@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+ <div>
+   <label for="file">
+<h2 class="major">Spesometro</h2>
+ <form method="post" enctype="multipart/form-data" id="post-form">
+    {% csrf_token %}    
+{{ form }}
+    <button type="submit"class="primary">Send</button>
+  </form>
+ </div>
+{% endblock %}
