@@ -2,7 +2,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
 
-app_name = 'spesometro'
+app_name = 'payslips'
 urlpatterns = [
-    path('spesometro/', views.simple_upload, name='import'),
+    path('payslip/', payslip, name='payslip'),
 ]

@@ -32,12 +32,16 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'spesometro.apps.SpesometroConfig',
+    'payslips.apps.PayslipsConfig',
+    'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'invoice',
+    'addressbook',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
@@ -129,3 +133,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'bisraspberry@gmail.com'
 EMAIL_HOST_PASSWORD = '24Wnehy#'
 EMAIL_PORT = 587
+
+AUTH_PROFILE_MODULE = 'account.UserProfile'
+
+INV_MODULE = 'account.invoice_mod'
+INV_CURRENCY = u'EUR'
+INV_CURRENCY_SYMBOL = u'€'
+INV_LOGO = 'static/images/logo.jpg'

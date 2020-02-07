@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'Home.html' %}
 
 {% block content %}
  
  <div>
    <label for="file">
-<h2 class="major">Spesometro</h2>
+<h2 class="major">Payslip</h2>
  <form method="post" enctype="multipart/form-data" id="post-form">
     {% csrf_token %}    
 {{ form }}
